@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Hub | WBBSE Class 10</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #080808;
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  border: 1px solid white;
+  padding: 3px 7px;
+  margin-right: 5px;
+}
+
+select, input, button {
+  font: inherit;
+}
+
+select, input {
+  background: #151515;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 11px;
+}
+
+main {
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 24px 16px 40px;
+}
+
+.hero {
+  padding: 30px 0;
+}
+
+.tag {
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: clamp(32px, 8vw, 48px);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+h2 {
+  font-size: 23px;
+  margin-bottom: 14px;
+}
+
+p {
+  color: #c2c2c2;
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: #141414;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 17px;
+  transition: border-color 0.2s;
+}
+
+.card:hover {
+  border-color: white;
+}
+
+.card h3 {
+  margin: 7px 0;
+}
+
+.icon {
+  font-size: 25px;
+}
+
+.search {
+  width: 100%;
+  margin-top: 18px;
+}
+
+button {
+  background: white;
+  color: black;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button.secondary {
+  background: transparent;
+  color: white;
+}
+
+button:active {
+  opacity: 0.7;
+}
+
+.subject-button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #141414;
+  color: white;
+  margin-top: 10px;
+  border-color: #333;
+  padding: 16px;
+}
+
+.subject-button small {
+  display: block;
+  color: #aaa;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+#chapterList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.chapter {
+  background: #141414;
+  border: 1px solid #333;
+  padding: 14px;
+  border-radius: 10px;
+  text-align: left;
+  color: white;
+  font-weight: normal;
+}
+
+.chapter p {
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+#lesson {
+  margin-top: 20px;
+  padding: 18px;
+  background: #181818;
+  border: 1px solid #555;
+  border-radius: 12px;
+}
+
+#lesson h3 {
+  margin-bottom: 8px;
+}
+
+#lesson p {
+  margin: 10px 0;
+}
+
+#quizBox {
+  margin-top: 16px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: white;
+  border: 1px solid #555;
+  margin-top: 9px;
+  font-weight: normal;
+}
+
+#feedback {
+  margin-top: 12px;
+  color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  border-top: 1px solid #333;
+  color: #999;
+  font-size: 13px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 380px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  header {
+    align-items: flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo"><span>S</span> SCIENCE HUB</div>
+
+  <select id="language" aria-label="Choose language">
+    <option value="en">English</option>
+    <option value="hi">हिन्दी</option>
+    <option value="bn">বাংলা</option>
+  </select>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="tag" data-i18n="tag">WBBSE • CLASS 10</p>
+    <h1 data-i18n="heroTitle">Science made simple.</h1>
+    <p data-i18n="heroText">
+      Learn concepts, revise chapters and test your knowledge.
+    </p>
+
+    <input
+      class="search"
+      id="search"
+      type="search"
+      data-placeholder="searchPlaceholder"
+      placeholder="Search science chapters..."
+    >
+  </section>
+
+  <section class="section">
+    <h2 data-i18n="subjects">Your subjects</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">⚡</div>
+        <h3 data-i18n="physical">Physical Science</h3>
+        <p data-i18n="physicalText">
+          Physics and Chemistry
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🌱</div>
+        <h3 data-i18n="life">Life Science</h3>
+        <p data-i18n="lifeText">
+          Biology and living organisms
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 data-i18n="chapters">Explore learning topics</h2>
+    <p data-i18n="chapterHint">
+      Select a topic to read a short lesson.
+    </p>
+
+    <div id="chapterList"></div>
+    <p id="noResults" class="hidden"></p>
+
+    <article id="lesson" class="hidden">
+      <h3 id="lessonTitle"></h3>
+      <p id="lessonText"></p>
+      <button class="secondary" id="closeLesson"
+        data-i18n="close">Close lesson</button>
+    </article>
+  </section>
+
+  <section class="section">
+    <h2 data-i18n="quizTitle">Quick science quiz</h2>
+    <div class="card">
+      <p id="question"></p>
+      <div id="quizBox"></div>
+      <p id="feedback" aria-live="polite"></p>
+      <button id="nextQuestion" style="margin-top:14px"
+        data-i18n="next">Next question</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>SCIENCE HUB • WBBSE CLASS 10</p>
+  <p data-i18n="footer">
+    A student learning project. Check your textbook for the official syllabus.
+  </p>
+</footer>
+
+<script>
+const translations = {
+  en: {
+    tag: "WBBSE • CLASS 10",
+    heroTitle: "Science made simple.",
+    heroText: "Learn concepts, revise chapters and test your knowledge.",
+    searchPlaceholder: "Search science topics...",
+    subjects: "Your subjects",
+    physical: "Physical Science",
+    physicalText: "Physics and Chemistry",
+    life: "Life Science",
+    lifeText: "Biology and living organisms",
+    chapters: "Explore learning topics",
+    chapterHint: "Select a topic to read a short lesson.",
+    close: "Close lesson",
+    quizTitle: "Quick science quiz",
+    next: "Next question",
+    footer: "A student learning project. Check your textbook for the official syllabus.",
+    noResults: "No matching topics found.",
+    lesson: "Short lesson",
+    questions: [
+      ["What is the SI unit of force?", ["Joule", "Newton", "Watt", "Volt"], 1, "Force is measured in newtons (N)."],
+      ["Which gas do plants absorb during photosynthesis?", ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], 2, "Plants use carbon dioxide during photosynthesis."],
+      ["A solution with pH below 7 is generally:", ["Acidic", "Basic", "Neutral", "Metallic"], 0, "A pH below 7 indicates an acidic solution."]
+    ]
+  },
+
+  hi: {
+    tag: "WBBSE • कक्षा 10",
+    heroTitle: "विज्ञान अब आसान।",
+    heroText: "अवधारणाएँ सीखें, अध्याय दोहराएँ और अपना ज्ञान जाँचें।",
+    searchPlaceholder: "विज्ञान के विषय खोजें...",
+    subjects: "आपके विषय",
+    physical: "भौतिक विज्ञान",
+    physicalText: "भौतिकी और रसायन विज्ञान",
+    life: "जीवन विज्ञान",
+    lifeText: "जीव विज्ञान और जीवित प्राणी",
+    chapters: "विषय सीखें",
+    chapterHint: "छोटा पाठ पढ़ने के लिए कोई विषय चुनें।",
+    close: "पाठ बंद करें",
+    quizTitle: "विज्ञान प्रश्नोत्तरी",
+    next: "अगला प्रश्न",
+    footer: "यह एक विद्यार्थी परियोजना है। आधिकारिक पाठ्यक्रम के लिए अपनी पाठ्यपुस्तक देखें।",
+    noResults: "कोई मिलता-जुलता विषय नहीं मिला।",
+    lesson: "संक्षिप्त पाठ",
+    questions: [
+      ["बल की SI इकाई क्या है?", ["जूल", "न्यूटन", "वाट", "वोल्ट"], 1, "बल को न्यूटन (N) में मापा जाता है।"],
+      ["प्रकाश संश्लेषण में पौधे कौन-सी गैस लेते हैं?", ["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], 2, "पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड का उपयोग करते हैं।"],
+      ["pH 7 से कम होने पर विलयन सामान्यतः कैसा होता है?", ["अम्लीय", "क्षारीय", "उदासीन", "धात्विक"], 0, "pH 7 से कम होने पर विलयन अम्लीय होता है।"]
+    ]
+  },
+
+  bn: {
+    tag: "WBBSE • দশম শ্রেণি",
+    heroTitle: "বিজ্ঞান শেখা সহজ।",
+    heroText: "বিষয় শিখুন, অধ্যায় ঝালিয়ে নিন এবং নিজের জ্ঞান যাচাই করুন।",
+    searchPlaceholder: "বিজ্ঞানের বিষয় খুঁজুন...",
+    subjects: "তোমার বিষয়",
+    physical: "ভৌত বিজ্ঞান",
+    physicalText: "পদার্থবিদ্যা ও রসায়ন",
+    life: "জীবন বিজ্ঞান",
+    lifeText: "জীববিজ্ঞান ও জীবজগৎ",
+    chapters: "বিষয়গুলি শেখো",
+    chapterHint: "ছোট পাঠ পড়তে একটি বিষয় বেছে নাও।",
+    close: "পাঠ বন্ধ করো",
+    quizTitle: "বিজ্ঞানের কুইজ",
+    next: "পরের প্রশ্ন",
+    footer: "এটি একটি শিক্ষামূলক প্রকল্প। সরকারি পাঠ্যক্রমের জন্য পাঠ্যবই দেখো।",
+    noResults: "মিলছে এমন কোনো বিষয় পাওয়া যায়নি।",
+    lesson: "সংক্ষিপ্ত পাঠ",
+    questions: [
+      ["বলের SI একক কী?", ["জুল", "নিউটন", "ওয়াট", "ভোল্ট"], 1, "বল নিউটন (N) এককে মাপা হয়।"],
+      ["সালোকসংশ্লেষে উদ্ভিদ কোন গ্যাস গ্রহণ করে?", ["অক্সিজেন", "নাইট্রোজেন", "কার্বন ডাই-অক্সাইড", "হাইড্রোজেন"], 2, "উদ্ভিদ সালোকসংশ্লেষে কার্বন ডাই-অক্সাইড ব্যবহার করে।"],
+      ["pH 7-এর কম হলে দ্রবণটি সাধারণত কেমন?", ["অম্লীয়", "ক্ষারীয়", "নিরপেক্ষ", "ধাতব"], 0, "pH 7-এর কম হলে দ্রবণটি অম্লীয় হয়।"]
+    ]
+  }
+};
+
+const topics = [
+  {
+    id: "light", subject: "physical",
+    title: {en:"Light", hi:"प्रकाश", bn:"আলো"},
+    text: {
+      en:"Light can reflect from a surface. The angle of incidence equals the angle of reflection when measured from the normal.",
+      hi:"प्रकाश किसी सतह से परावर्तित हो सकता है। सामान्य स्थिति में आपतन कोण, परावर्तन कोण के बराबर होता है।",
+      bn:"আলো কোনো পৃষ্ঠ থেকে প্রতিফলিত হতে পারে। আপতন কোণ ও প্রতিফলন কোণ সমান হয়।"
+    }
+  },
+  {
+    id: "electricity", subject: "physical",
+    title: {en:"Electricity", hi:"विद्युत", bn:"বিদ্যুৎ"},
+    text: {
+      en:"Ohm's law: V = I × R. Voltage equals current multiplied by resistance.",
+      hi:"ओम का नियम: V = I × R। विभवांतर = धारा × प्रतिरोध।",
+      bn:"ওহমের সূত্র: V = I × R। বিভব পার্থক্য = তড়িৎ প্রবাহ × রোধ।"
+    }
+  },
+  {
+    id: "reactions", subject: "physical",
+    title: {en:"Chemical reactions", hi:"रासायनिक अभिक्रियाएँ", bn:"রাসায়নিক বিক্রিয়া"},
+    text: {
+      en:"A chemical reaction converts reactants into products. Chemical equations should be balanced to conserve atoms.",
+      hi:"रासायनिक अभिक्रिया में अभिकारक उत्पादों में बदलते हैं। परमाणुओं की संख्या सुरक्षित रखने के लिए समीकरण संतुलित करें।",
+      bn:"রাসায়নিক বিক্রিয়ায় বিক্রিয়ক পদার্থ উৎপাদে পরিণত হয়। পরমাণুর সংখ্যা ঠিক রাখতে সমীকরণ সমতা করতে হয়।"
+    }
+  },
+  {
+    id: "life", subject: "life",
+    title: {en:"Life processes", hi:"जैव प्रक्रम", bn:"জীবন প্রক্রিয়া"},
+    text: {
+      en:"Living organisms carry out processes such as nutrition, respiration, transport and excretion to stay alive.",
+      hi:"जीवित रहने के लिए जीव पोषण, श्वसन, परिवहन और उत्सर्जन जैसी प्रक्रियाएँ करते हैं।",
+      bn:"বেঁচে থাকার জন্য জীব পুষ্টি, শ্বসন, পরিবহন ও রেচনের মতো প্রক্রিয়া চালায়।"
+    }
+  },
+  {
+    id: "environment", subject: "life",
+    title: {en:"Environment", hi:"पर्यावरण", bn:"পরিবেশ"},
+    text: {
+      en:"An ecosystem includes living organisms and their non-living surroundings interacting with one another.",
+      hi:"पारितंत्र में जीवित जीव और उनका निर्जीव परिवেশ एक-दूसरे के साथ अंतःक्रिया करते हैं।",
+      bn:"বাস্তুতন্ত্রে জীব ও তাদের অজীব পরিবেশ একে অপরের সঙ্গে মিথস্ক্রিয়া করে।"
+    }
+  }
+];
+
+let currentLanguage = "en";
+let questionIndex = 0;
+let answered = false;
+
+const languageSelect = document.getElementById("language");
+const chapterList = document.getElementById("chapterList");
+const searchInput = document.getElementById("search");
+const lesson = document.getElementById("lesson");
+
+function updateLanguage() {
+  currentLanguage = languageSelect.value;
+  document.documentElement.lang = currentLanguage;
+
+  document.querySelectorAll("[data-i18n]").forEach(element => {
+    const key = element.dataset.i18n;
+    element.textContent = translations[currentLanguage][key];
+  });
+
+  document.querySelectorAll("[data-placeholder]").forEach(element => {
+    const key = element.dataset.placeholder;
+    element.placeholder = translations[currentLanguage][key];
+  });
+
+  renderTopics();
+  renderQuestion();
+  lesson.classList.add("hidden");
+}
+
+function renderTopics() {
+  const term = searchInput.value.toLocaleLowerCase().trim();
+  chapterList.innerHTML = "";
+
+  const filtered = topics.filter(topic => {
+    const title = topic.title[currentLanguage].toLocaleLowerCase();
+    const englishTitle = topic.title.en.toLocaleLowerCase();
+    const subjectName = translations[currentLanguage][topic.subject].toLocaleLowerCase();
+    return title.includes(term) ||
+           englishTitle.includes(term) ||
+           subjectName.includes(term);
+  });
+
+  document.getElementById("noResults").textContent =
+    translations[currentLanguage].noResults;
+  document.getElementById("noResults").classList.toggle(
+    "hidden", filtered.length !== 0
+  );
+
+  filtered.forEach(topic => {
+    const button = document.createElement("button");
+    button.className = "chapter";
+
+    const title = document.createElement("strong");
+    title.textContent = topic.title[currentLanguage];
+
+    const description = document.createElement("p");
+    description.textContent = translations[currentLanguage][topic.subject];
+
+    button.append(title, description);
+    button.addEventListener("click", () => openLesson(topic));
+    chapterList.appendChild(button);
+  });
+}
+
+function openLesson(topic) {
+  document.getElementById("lessonTitle").textContent =
+    topic.title[currentLanguage];
+
+  document.getElementById("lessonText").textContent =
+    topic.text[currentLanguage];
+
+  lesson.classList.remove("hidden");
+  lesson.scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function renderQuestion() {
+  answered = false;
+  const quiz = translations[currentLanguage].questions;
+  const item = quiz[questionIndex % quiz.length];
+
+  document.getElementById("question").textContent =
+    (questionIndex + 1) + ". " + item[0];
+
+  document.getElementById("feedback").textContent = "";
+  const box = document.getElementById("quizBox");
+  box.innerHTML = "";
+
+  item[1].forEach((answer, index) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent = answer;
+    button.addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+
+      const feedback = document.getElementById("feedback");
+      if (index === item[2]) {
+        feedback.textContent = "✓ " + item[3];
+      } else {
+        feedback.textContent = "✗ " + item[3];
+      }
+    });
+    box.appendChild(button);
+  });
+}
+
+languageSelect.addEventListener("change", updateLanguage);
+searchInput.addEventListener("input", renderTopics);
+
+document.getElementById("closeLesson").addEventListener("click", () => {
+  lesson.classList.add("hidden");
+});
+
+document.getElementById("nextQuestion").addEventListener("click", () => {
+  questionIndex++;
+  renderQuestion();
+});
+
+updateLanguage();
+</script>
+
+</body>
+</html>
