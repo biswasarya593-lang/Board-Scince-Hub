@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://biswasarya593-lang.github.io/Board-Scince-Hub/sitemap.xml
