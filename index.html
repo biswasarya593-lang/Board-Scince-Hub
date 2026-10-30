@@ -1,5 +1,57 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Hub | WBBSE Class 10</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #080808;
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  padding: 20px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  border: 1px solid white;
+  padding: 3px 7px;
+  margin-right: 5px;
+}
+
+select, input, button {
+  font: inherit;
+}
+
+select, input {
+  background: #151515;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 11px;
 }
 
 main {
@@ -14,7 +66,10 @@ main {
 }
 
 .tag {
-  color  margin-bottom: 12px;
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
 }
 
 h1 {
@@ -156,9 +211,20 @@ button:active {
   font-weight: normal;
 }
 
+.option:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+
 #feedback {
   margin-top: 12px;
   color: white;
+}
+
+#questionCount {
+  color: #aaa;
+  font-size: 13px;
+  margin-bottom: 8px;
 }
 
 footer {
@@ -221,17 +287,13 @@ footer {
       <div class="card">
         <div class="icon">⚡</div>
         <h3 data-i18n="physical">Physical Science</h3>
-        <p data-i18n="physicalText">
-          Physics and Chemistry
-        </p>
+        <p data-i18n="physicalText">Physics and Chemistry</p>
       </div>
 
       <div class="card">
         <div class="icon">🌱</div>
         <h3 data-i18n="life">Life Science</h3>
-        <p data-i18n="lifeText">
-          Biology and living organisms
-        </p>
+        <p data-i18n="lifeText">Biology and living organisms</p>
       </div>
     </div>
   </section>
@@ -256,6 +318,7 @@ footer {
   <section class="section">
     <h2 data-i18n="quizTitle">Quick science quiz</h2>
     <div class="card">
+      <p id="questionCount"></p>
       <p id="question"></p>
       <div id="quizBox"></div>
       <p id="feedback" aria-live="polite"></p>
@@ -292,11 +355,16 @@ const translations = {
     footer: "A student learning project. Check your textbook for the official syllabus.",
     noResults: "No matching topics found.",
     lesson: "Short lesson",
+    question: "Question",
+    correct: "Correct!",
+    wrong: "Not quite!",
     questions: [
       ["What is the SI unit of force?", ["Joule", "Newton", "Watt", "Volt"], 1, "Force is measured in newtons (N)."],
       ["Which gas do plants absorb during photosynthesis?", ["Oxygen", "Nitrogen", "Carbon dioxide", "Hydrogen"], 2, "Plants use carbon dioxide during photosynthesis."],
       ["A solution with pH below 7 is generally:", ["Acidic", "Basic", "Neutral", "Metallic"], 0, "A pH below 7 indicates an acidic solution."]
-      ]
+    ]
+  },
+
   hi: {
     tag: "WBBSE • कक्षा 10",
     heroTitle: "विज्ञान अब आसान।",
@@ -315,6 +383,9 @@ const translations = {
     footer: "यह एक विद्यार्थी परियोजना है। आधिकारिक पाठ्यक्रम के लिए अपनी पाठ्यपुस्तक देखें।",
     noResults: "कोई मिलता-जुलता विषय नहीं मिला।",
     lesson: "संक्षिप्त पाठ",
+    question: "प्रश्न",
+    correct: "सही जवाब!",
+    wrong: "सही जवाब नहीं!",
     questions: [
       ["बल की SI इकाई क्या है?", ["जूल", "न्यूटन", "वाट", "वोल्ट"], 1, "बल को न्यूटन (N) में मापा जाता है।"],
       ["प्रकाश संश्लेषण में पौधे कौन-सी गैस लेते हैं?", ["ऑक्सीजन", "नाइट्रोजन", "कार्बन डाइऑक्साइड", "हाइड्रोजन"], 2, "पौधे प्रकाश संश्लेषण में कार्बन डाइऑक्साइड का उपयोग करते हैं।"],
@@ -340,6 +411,9 @@ const translations = {
     footer: "এটি একটি শিক্ষামূলক প্রকল্প। সরকারি পাঠ্যক্রমের জন্য পাঠ্যবই দেখো।",
     noResults: "মিলছে এমন কোনো বিষয় পাওয়া যায়নি।",
     lesson: "সংক্ষিপ্ত পাঠ",
+    question: "প্রশ্ন",
+    correct: "সঠিক উত্তর!",
+    wrong: "সঠিক উত্তর নয়!",
     questions: [
       ["বলের SI একক কী?", ["জুল", "নিউটন", "ওয়াট", "ভোল্ট"], 1, "বল নিউটন (N) এককে মাপা হয়।"],
       ["সালোকসংশ্লেষে উদ্ভিদ কোন গ্যাস গ্রহণ করে?", ["অক্সিজেন", "নাইট্রোজেন", "কার্বন ডাই-অক্সাইড", "হাইড্রোজেন"], 2, "উদ্ভিদ সালোকসংশ্লেষে কার্বন ডাই-অক্সাইড ব্যবহার করে।"],
@@ -347,6 +421,317 @@ const translations = {
     ]
   }
 };
+
+/*
+  Each extra question contains:
+  question: [English, Hindi, Bengali]
+  options: [English options, Hindi options, Bengali options]
+  answer: correct option index
+  explanation: [English, Hindi, Bengali]
+*/
+
+const extraQuestions = [
+{
+q:["What is the SI unit of work?","कार्य की SI इकाई क्या है?","কাজের SI একক কী?"],
+o:[["Joule","Newton","Watt","Pascal"],["जूल","न्यूटन","वाट","पास्कल"],["জুল","নিউটন","ওয়াট","পাস্কাল"]],
+a:0,
+e:["Work is measured in joules (J).","कार्य को जूल (J) में मापा जाता है।","কাজ জুল (J) এককে মাপা হয়।"]
+},
+{
+q:["Which gas is needed for burning?","जलने के लिए कौन-सी गैस आवश्यक है?","দহনের জন্য কোন গ্যাস প্রয়োজন?"],
+o:[["Nitrogen","Oxygen","Carbon dioxide","Hydrogen"],["नाइट्रोजन","ऑक्सीजन","कार्बन डाइऑक्साइड","हाइड्रोजन"],["নাইট্রোজেন","অক্সিজেন","কার্বন ডাই-অক্সাইড","হাইড্রোজেন"]],
+a:1,
+e:["Oxygen supports combustion.","ऑक्सीजन दहन में सहायता करती है।","অক্সিজেন দহনে সাহায্য করে।"]
+},
+{
+q:["What is the chemical formula of common salt?","साधारण नमक का रासायनिक सूत्र क्या है?","সাধারণ লবণের রাসায়নিক সংকেত কী?"],
+o:[["NaCl","H2O","CO2","HCl"],["NaCl","H2O","CO2","HCl"],["NaCl","H2O","CO2","HCl"]],
+a:0,
+e:["Common salt is sodium chloride, NaCl.","साधारण नमक सोडियम क्लोराइड है, जिसका सूत्र NaCl है।","সাধারণ লবণ হলো সোডিয়াম ক্লোরাইড, যার সংকেত NaCl।"]
+},
+{
+q:["Which is known as the Red Planet?","किस ग्रह को लाल ग्रह कहा जाता है?","কোন গ্রহকে লাল গ্রহ বলা হয়?"],
+o:[["Venus","Jupiter","Mars","Saturn"],["शुक्र","बृहस्पति","मंगल","शनि"],["শুক্র","বৃহস্পতি","মঙ্গল","শনি"]],
+a:2,
+e:["Mars is called the Red Planet because of its reddish surface.","मंगल की सतह लालिमा लिए होती है, इसलिए इसे लाल ग्रह कहते हैं।","মঙ্গলের পৃষ্ঠ লালচে হওয়ায় একে লাল গ্রহ বলা হয়।"]
+},
+{
+q:["Which organ pumps blood throughout the human body?","मानव शरीर में कौन-सा अंग पूरे शरीर में रक्त पंप करता है?","মানবদেহে কোন অঙ্গ সারা শরীরে রক্ত পাম্প করে?"],
+o:[["Lungs","Heart","Kidney","Liver"],["फेफड़े","हृदय","गुर्दा","यकृत"],["ফুসফুস","হৃৎপিণ্ড","বৃক্ক","যকৃত"]],
+a:1,
+e:["The heart pumps blood through the circulatory system.","हृदय परिसंचरण तंत्र के माध्यम से रक्त पंप करता है।","হৃৎপিণ্ড সংবহনতন্ত্রের মাধ্যমে রক্ত পাম্প করে।"]
+},
+{
+q:["Which vitamin is produced in the skin in sunlight?","सूर्य के प्रकाश में त्वचा में कौन-सा विटामिन बनता है?","সূর্যালোকে ত্বকে কোন ভিটামিন তৈরি হয়?"],
+o:[["Vitamin A","Vitamin B","Vitamin C","Vitamin D"],["विटामिन A","विटामिन B","विटामिन C","विटामिन D"],["ভিটামিন A","ভিটামিন B","ভিটামিন C","ভিটামিন D"]],
+a:3,
+e:["Sunlight helps the skin produce vitamin D.","सूर्य का प्रकाश त्वचा में विटामिन D बनने में मदद करता है।","সূর্যালোক ত্বকে ভিটামিন D তৈরি হতে সাহায্য করে।"]
+},
+{
+q:["What is the boiling point of pure water at normal atmospheric pressure?","सामान्य वायुमंडलीय दबाव पर शुद्ध जल का क्वथनांक कितना है?","স্বাভাবিক বায়ুমণ্ডলীয় চাপে বিশুদ্ধ জলের স্ফুটনাঙ্ক কত?"],
+o:[["0°C","50°C","100°C","150°C"],["0°C","50°C","100°C","150°C"],["0°C","50°C","100°C","150°C"]],
+a:2,
+e:["Pure water boils at 100°C at normal atmospheric pressure.","सामान्य वायुमंडलीय दबाव पर शुद्ध जल 100°C पर उबलता है।","স্বাভাবিক বায়ুমণ্ডলীয় চাপে বিশুদ্ধ জল 100°C তাপমাত্রায় ফোটে।"]
+},
+{
+q:["Which plant part mainly absorbs water from the soil?","पौधे का कौन-सा भाग मुख्य रूप से मिट्टी से पानी सोखता है?","উদ্ভিদের কোন অংশ প্রধানত মাটি থেকে জল শোষণ করে?"],
+o:[["Leaf","Flower","Root","Fruit"],["पत्ती","फूल","जड़","फल"],["পাতা","ফুল","মূল","ফল"]],
+a:2,
+e:["Roots absorb water and minerals from the soil.","जड़ें मिट्टी से पानी और खनिजों को अवशोषित करती हैं।","মূল মাটি থেকে জল ও খনিজ পদার্থ শোষণ করে।"]
+},
+{
+q:["Which gas is released by green plants during photosynthesis?","प्रकाश संश्लेषण के दौरान हरे पौधे कौन-सी गैस छोड़ते हैं?","সালোকসংশ্লেষের সময় সবুজ উদ্ভিদ কোন গ্যাস ত্যাগ করে?"],
+o:[["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],["कार्बन डाइऑक्साइड","ऑक्सीजन","नाइट्रोजन","हाइड्रोजन"],["কার্বন ডাই-অক্সাইড","অক্সিজেন","নাইট্রোজেন","হাইড্রোজেন"]],
+a:1,
+e:["Oxygen is released during photosynthesis.","प्रकाश संश्लेषण के दौरान ऑक्सीजन निकलती है।","সালোকসংশ্লেষের সময় অক্সিজেন নির্গত হয়।"]
+},
+{
+q:["What is the SI unit of electric power?","विद्युत शक्ति की SI इकाई क्या है?","তড়িৎ ক্ষমতার SI একক কী?"],
+o:[["Volt","Ampere","Watt","Ohm"],["वोल्ट","एम्पियर","वाट","ओम"],["ভোল্ট","অ্যাম্পিয়ার","ওয়াট","ওহম"]],
+a:2,
+e:["Electric power is measured in watts (W).","विद्युत शक्ति को वाट (W) में मापा जाता है।","তড়িৎ ক্ষমতা ওয়াট (W) এককে মাপা হয়।"]
+},
+{
+q:["Which metal is liquid at ordinary room temperature?","सामान्य कमरे के तापमान पर कौन-सी धातु द्रव होती है?","সাধারণ ঘরের তাপমাত্রায় কোন ধাতু তরল থাকে?"],
+o:[["Iron","Mercury","Copper","Aluminium"],["लोहा","पारा","ताँबा","एल्युमिनियम"],["লোহা","পারদ","তামা","অ্যালুমিনিয়াম"]],
+a:1,
+e:["Mercury is liquid at ordinary room temperature.","पारा सामान्य कमरे के तापमान पर द्रव होता है।","পারদ সাধারণ ঘরের তাপমাত্রায় তরল থাকে।"]
+},
+{
+q:["A solution with pH 9 is generally:","pH 9 वाला विलयन सामान्यतः कैसा होता है?","pH 9 যুক্ত দ্রবণ সাধারণত কেমন?"],
+o:[["Acidic","Basic","Neutral","Metallic"],["अम्लीय","क्षारीय","उदासीन","धात्विक"],["অম্লীয়","ক্ষারীয়","নিরপেক্ষ","ধাতব"]],
+a:1,
+e:["A pH greater than 7 indicates a basic solution.","pH 7 से अधिक होने पर विलयन क्षारीय होता है।","pH 7-এর বেশি হলে দ্রবণটি ক্ষারীয় হয়।"]
+},
+{
+q:["Which blood cells help the body fight infections?","कौन-सी रक्त कोशिकाएँ शरीर को संक्रमण से लड़ने में मदद करती हैं?","কোন রক্তকণিকা শরীরকে সংক্রমণের বিরুদ্ধে লড়তে সাহায্য করে?"],
+o:[["Red blood cells","White blood cells","Platelets","Plasma"],["लाल रक्त कोशिकाएँ","श्वेत रक्त कोशिकाएँ","प्लेटलेट्स","प्लाज़्मा"],["লোহিত রক্তকণিকা","শ্বেত রক্তকণিকা","অণুচক্রিকা","প্লাজমা"]],
+a:1,
+e:["White blood cells help defend the body against infections.","श्वेत रक्त कोशिकाएँ शरीर को संक्रमण से बचाने में मदद करती हैं।","শ্বেত রক্তকণিকা শরীরকে সংক্রমণের বিরুদ্ধে রক্ষা করে।"]
+},
+{
+q:["Which mirror is commonly used as a rear-view mirror in vehicles?","वाहनों में पीछे देखने के लिए सामान्यतः कौन-सा दर्पण उपयोग होता है?","গাড়িতে পিছনের দৃশ্য দেখার জন্য সাধারণত কোন দর্পণ ব্যবহৃত হয়?"],
+o:[["Plane mirror","Concave mirror","Convex mirror","Cylindrical mirror"],["समतल दर्पण","अवतल दर्पण","उत्तल दर्पण","बेलनाकार दर्पण"],["সমতল দর্পণ","অবতল দর্পণ","উত্তল দর্পণ","বেলনাকার দর্পণ"]],
+a:2,
+e:["A convex mirror gives a wider field of view.","उत्तल दर्पण अधिक विस्तृत क्षेत्र दिखाता है।","উত্তল দর্পণ বেশি বিস্তৃত ক্ষেত্রের দৃশ্য দেখায়।"]
+},
+{
+q:["What is the chemical symbol of sodium?","सोडियम का रासायनिक प्रतीक क्या है?","সোডিয়ামের রাসায়নিক প্রতীক কী?"],
+o:[["S","So","Na","N"],["S","So","Na","N"],["S","So","Na","N"]],
+a:2,
+e:["The chemical symbol of sodium is Na.","सोडियम का रासायनिक प्रतीक Na है।","সোডিয়ামের রাসায়নিক প্রতীক Na।"]
+},
+{
+q:["Which organ filters blood and forms urine?","कौन-सा अंग रक्त को छानकर मूत्र बनाता है?","কোন অঙ্গ রক্ত পরিশোধন করে মূত্র তৈরি করে?"],
+o:[["Heart","Kidney","Lungs","Stomach"],["हृदय","गुर्दा","फेफड़े","आमाशय"],["হৃৎপিণ্ড","বৃক্ক","ফুসফুস","পাকস্থলী"]],
+a:1,
+e:["The kidneys filter wastes from blood and help form urine.","गुर्दे रक्त से अपशिष्ट छानकर मूत्र बनाने में मदद करते हैं।","বৃক্ক রক্ত থেকে বর্জ্য পদার্থ ছেঁকে মূত্র তৈরি করতে সাহায্য করে।"]
+},
+{
+q:["Which pigment gives green plants their green colour?","हरे पौधों को हरा रंग कौन-सा वर्णक देता है?","সবুজ উদ্ভিদকে সবুজ রং দেয় কোন রঞ্জক?"],
+o:[["Haemoglobin","Chlorophyll","Melanin","Keratin"],["हीमोग्लोबिन","क्लोरोफिल","मेलेनिन","केराटिन"],["হিমোগ্লোবিন","ক্লোরোফিল","মেলানিন","কেরাটিন"]],
+a:1,
+e:["Chlorophyll is the green pigment found in plants.","क्लोरोफिल पौधों में पाया जाने वाला हरा वर्णक है।","ক্লোরোফিল উদ্ভিদে থাকা সবুজ রঞ্জক।"]
+},
+{
+q:["Which force pulls objects towards the Earth?","कौन-सा बल वस्तुओं को पृथ्वी की ओर खींचता है?","কোন বল বস্তুকে পৃথিবীর দিকে আকর্ষণ করে?"],
+o:[["Magnetic force","Frictional force","Gravitational force","Muscular force"],["चुंबकीय बल","घर्षण बल","गुरुत्वाकर्षण बल","पेशीय बल"],["চৌম্বক বল","ঘর্ষণ বল","মহাকর্ষীয় বল","পেশি বল"]],
+a:2,
+e:["Gravity attracts objects towards the Earth.","गुरुत्वाकर्षण वस्तुओं को पृथ्वी की ओर आकर्षित करता है।","মহাকর্ষ বল বস্তুকে পৃথিবীর দিকে আকর্ষণ করে।"]
+},
+{
+q:["Which acid is present in lemon juice?","नींबू के रस में कौन-सा अम्ल पाया जाता है?","লেবুর রসে কোন অ্যাসিড থাকে?"],
+o:[["Citric acid","Acetic acid","Lactic acid","Hydrochloric acid"],["साइट्रिक अम्ल","एसिटिक अम्ल","लैक्टिक अम्ल","हाइड्रोक्लोरिक अम्ल"],["সাইট্রিক অ্যাসিড","অ্যাসিটিক অ্যাসিড","ল্যাকটিক অ্যাসিড","হাইড্রোক্লোরিক অ্যাসিড"]],
+a:0,
+e:["Lemon juice contains citric acid.","नींबू के रस में साइट्रिक अम्ल होता है।","লেবুর রসে সাইট্রিক অ্যাসিড থাকে।"]
+},
+{
+q:["Which instrument measures temperature?","तापमान मापने के लिए किस यंत्र का उपयोग होता है?","তাপমাত্রা মাপার যন্ত্র কোনটি?"],
+o:[["Barometer","Thermometer","Ammeter","Voltmeter"],["बैरोमीटर","थर्मामीटर","एमीटर","वोल्टमीटर"],["ব্যারোমিটার","থার্মোমিটার","অ্যামিটার","ভোল্টমিটার"]],
+a:1,
+e:["A thermometer is used to measure temperature.","तापमान मापने के लिए थर्मामीटर का उपयोग किया जाता है।","তাপমাত্রা মাপতে থার্মোমিটার ব্যবহার করা হয়।"]
+},
+{
+q:["What is the SI unit of electrical resistance?","विद्युत प्रतिरोध की SI इकाई क्या है?","তড়িৎ রোধের SI একক কী?"],
+o:[["Ohm","Volt","Ampere","Watt"],["ओम","वोल्ट","एम्पियर","वाट"],["ওহম","ভোল্ট","অ্যাম্পিয়ার","ওয়াট"]],
+a:0,
+e:["Electrical resistance is measured in ohms (Ω).","विद्युत प्रतिरोध को ओम (Ω) में मापा जाता है।","তড়িৎ রোধ ওহম (Ω) এককে মাপা হয়।"]
+},
+{
+q:["Which part of a cell contains genetic material?","कोशिका के किस भाग में आनुवंशिक पदार्थ होता है?","কোষের কোন অংশে বংশগতির উপাদান থাকে?"],
+o:[["Cell wall","Nucleus","Cytoplasm","Cell membrane"],["कोशिका भित्ति","केंद्रक","कोशिकाद्रव्य","कोशिका झिल्ली"],["কোষপ্রাচীর","কেন্দ্রক","সাইটোপ্লাজম","কোষপর্দা"]],
+a:1,
+e:["The nucleus contains most of the cell's genetic material.","केंद्रक में कोशिका का अधिकांश आनुवंशिक पदार्थ होता है।","কেন্দ্রকে কোষের অধিকাংশ বংশগতির উপাদান থাকে।"]
+},
+{
+q:["Which process releases energy from food inside cells?","कोशिकाओं में भोजन से ऊर्जा किस प्रक्रिया द्वारा निकलती है?","কোষের মধ্যে খাদ্য থেকে কোন প্রক্রিয়ায় শক্তি মুক্ত হয়?"],
+o:[["Photosynthesis","Respiration","Transpiration","Digestion"],["प्रकाश संश्लेषण","श्वसन","वाष्पोत्सर्जन","पाचन"],["সালোকসংশ্লেষ","শ্বসন","প্রস্বেদন","পরিপাক"]],
+a:1,
+e:["Cellular respiration releases energy from food molecules.","कोशिकीय श्वसन भोजन के अणुओं से ऊर्जा मुक्त करता है।","কোষীয় শ্বসনে খাদ্য অণু থেকে শক্তি মুক্ত হয়।"]
+},
+{
+q:["Which gas turns limewater milky?","कौन-सी गैस चूने के पानी को दूधिया बनाती है?","কোন গ্যাস চুনের জলকে দুধের মতো সাদা করে?"],
+o:[["Oxygen","Hydrogen","Carbon dioxide","Nitrogen"],["ऑक्सीजन","हाइड्रोजन","कार्बन डाइऑक्साइड","नाइट्रोजन"],["অক্সিজেন","হাইড্রোজেন","কার্বন ডাই-অক্সাইড","নাইট্রোজেন"]],
+a:2,
+e:["Carbon dioxide reacts with limewater to form insoluble calcium carbonate.","कार्बन डाइऑक्साइड चूने के पानी से अभिक्रिया करके अघुलनशील कैल्शियम कार्बोनेट बनाती है।","কার্বন ডাই-অক্সাইড চুনের জলের সঙ্গে বিক্রিয়া করে অদ্রবণীয় ক্যালসিয়াম কার্বনেট তৈরি করে।"]
+},
+{
+q:["Which lens is thicker at the centre than at the edges?","कौन-सा लेंस किनारों की तुलना में बीच में मोटा होता है?","কোন লেন্সের মাঝখান প্রান্তের তুলনায় বেশি পুরু?"],
+o:[["Concave lens","Convex lens","Plane glass","None of these"],["अवतल लेंस","उत्तल लेंस","समतल काँच","इनमें से कोई नहीं"],["অবতল লেন্স","উত্তল লেন্স","সমতল কাচ","কোনোটিই নয়"]],
+a:1,
+e:["A convex lens is thicker at the centre and thinner at the edges.","उत्तल लेंस बीच में मोटा और किनारों पर पतला होता है।","উত্তল লেন্সের মাঝখান পুরু এবং প্রান্ত পাতলা হয়।"]
+},
+{
+q:["Which blood component helps in clotting?","रक्त का कौन-सा घटक थक्का जमाने में मदद करता है?","রক্তের কোন উপাদান রক্ত জমাট বাঁধতে সাহায্য করে?"],
+o:[["Red blood cells","White blood cells","Platelets","Plasma"],["लाल रक्त कोशिकाएँ","श्वेत रक्त कोशिकाएँ","प्लेटलेट्स","प्लाज़्मा"],["লোহিত রক্তকণিকা","শ্বেত রক্তকণিকা","অণুচক্রিকা","প্লাজমা"]],
+a:2,
+e:["Platelets help the blood clot at an injured site.","प्लेटलेट्स चोट लगने पर रक्त का थक्का जमाने में मदद करते हैं।","অণুচক্রিকা আঘাতের স্থানে রক্ত জমাট বাঁধতে সাহায্য করে।"]
+},
+{
+q:["What is the chemical formula of water?","पानी का रासायनिक सूत्र क्या है?","জলের রাসায়নিক সংকেত কী?"],
+o:[["CO2","H2O","O2","NaCl"],["CO2","H2O","O2","NaCl"],["CO2","H2O","O2","NaCl"]],
+a:1,
+e:["A water molecule contains two hydrogen atoms and one oxygen atom.","पानी के एक अणु में दो हाइड्रोजन और एक ऑक्सीजन परमाणु होता है।","জলের একটি অণুতে দুটি হাইড্রোজেন ও একটি অক্সিজেন পরমাণু থাকে।"]
+},
+{
+q:["Which planet is closest to the Sun?","सूर्य के सबसे निकट कौन-सा ग्रह है?","সূর্যের সবচেয়ে কাছের গ্রহ কোনটি?"],
+o:[["Venus","Earth","Mercury","Mars"],["शुक्र","पृथ्वी","बुध","मंगल"],["শুক্র","পৃথিবী","বুধ","মঙ্গল"]],
+a:2,
+e:["Mercury is the closest planet to the Sun.","बुध सूर्य के सबसे निकट का ग्रह है।","বুধ সূর্যের সবচেয়ে কাছের গ্রহ।"]
+},
+{
+q:["Which organs are mainly responsible for gas exchange in humans?","मनुष्य में गैसों का आदान-प्रदान मुख्य रूप से कौन-से अंग करते हैं?","মানুষের দেহে প্রধানত কোন অঙ্গ গ্যাসের আদান-প্রদান করে?"],
+o:[["Kidneys","Lungs","Stomach","Liver"],["गुर्दे","फेफड़े","आमाशय","यकृत"],["বৃক্ক","ফুসফুস","পাকস্থলী","যকৃত"]],
+a:1,
+e:["The lungs exchange oxygen and carbon dioxide with the air.","फेफड़े हवा के साथ ऑक्सीजन और कार्बन डाइऑक्साइड का आदान-प्रदान करते हैं।","ফুসফুস বাতাসের সঙ্গে অক্সিজেন ও কার্বন ডাই-অক্সাইডের আদান-প্রদান করে।"]
+},
+{
+q:["Which nutrient is the body's main quick source of energy?","शरीर को तुरंत ऊर्जा देने वाला मुख्य पोषक तत्व कौन-सा है?","শরীরের দ্রুত শক্তির প্রধান উৎস কোন পুষ্টি উপাদান?"],
+o:[["Carbohydrates","Vitamins","Minerals","Water"],["कार्बोहाइड्रेट","विटामिन","खनिज","पानी"],["শর্করা","ভিটামিন","খনিজ","জল"]],
+a:0,
+e:["Carbohydrates are a major source of readily available energy.","कार्बोहाइड्रेट शरीर को आसानी से उपलब्ध ऊर्जा का प्रमुख स्रोत हैं।","শর্করা শরীরের সহজলভ্য শক্তির প্রধান উৎস।"]
+},
+{
+q:["Which instrument measures electric current?","विद्युत धारा मापने के लिए किस यंत्र का उपयोग होता है?","তড়িৎ প্রবাহ মাপার যন্ত্র কোনটি?"],
+o:[["Voltmeter","Ammeter","Thermometer","Barometer"],["वोल्टमीटर","एमीटर","थर्मामीटर","बैरोमीटर"],["ভোল্টমিটার","অ্যামিটার","থার্মোমিটার","ব্যারোমিটার"]],
+a:1,
+e:["An ammeter measures electric current.","एमीटर विद्युत धारा मापता है।","অ্যামিটার তড়িৎ প্রবাহ মাপে।"]
+},
+{
+q:["Which device converts electrical energy into mechanical energy?","कौन-सा उपकरण विद्युत ऊर्जा को यांत्रिक ऊर्जा में बदलता है?","কোন যন্ত্র তড়িৎ শক্তিকে যান্ত্রিক শক্তিতে রূপান্তর করে?"],
+o:[["Electric motor","Electric heater","Bulb","Cell"],["विद्युत मोटर","विद्युत हीटर","बल्ब","सेल"],["বৈদ্যুতিক মোটর","বৈদ্যুতিক হিটার","বাল্ব","কোষ"]],
+a:0,
+e:["An electric motor converts electrical energy into mechanical energy.","विद्युत मोटर विद्युत ऊर्जा को यांत्रिक ऊर्जा में बदलती है।","বৈদ্যুতিক মোটর তড়িৎ শক্তিকে যান্ত্রিক শক্তিতে রূপান্তর করে।"]
+},
+{
+q:["Which gas makes up the largest part of Earth's atmosphere?","पृथ्वी के वायुमंडल में सबसे अधिक मात्रा में कौन-सी गैस है?","পৃথিবীর বায়ুমণ্ডলে সবচেয়ে বেশি পরিমাণে কোন গ্যাস রয়েছে?"],
+o:[["Oxygen","Carbon dioxide","Nitrogen","Argon"],["ऑक्सीजन","कार्बन डाइऑक्साइड","नाइट्रोजन","आर्गन"],["অক্সিজেন","কার্বন ডাই-অক্সাইড","নাইট্রোজেন","আর্গন"]],
+a:2,
+e:["Nitrogen makes up about 78% of Earth's atmosphere.","पृथ्वी के वायुमंडल में लगभग 78% नाइट्रोजन होती है।","পৃথিবীর বায়ুমণ্ডলের প্রায় ৭৮% নাইট্রোজেন।"]
+},
+{
+q:["Which part of the eye controls the amount of light entering it?","आँख का कौन-सा भाग अंदर जाने वाले प्रकाश की मात्रा नियंत्रित करता है?","চোখের কোন অংশে প্রবেশ করা আলোর পরিমাণ নিয়ন্ত্রণ করে?"],
+o:[["Retina","Iris","Optic nerve","Cornea"],["रेटिना","आइरिस","दृष्टि तंत्रिका","कॉर्निया"],["রেটিনা","আইরিস","দৃষ্টিস্নায়ু","কর্নিয়া"]],
+a:1,
+e:["The iris changes pupil size to regulate incoming light.","आइरिस पुतली का आकार बदलकर आने वाले प्रकाश को नियंत्रित करता है।","আইরিস চোখের মণির আকার বদলে প্রবেশকারী আলোর পরিমাণ নিয়ন্ত্রণ করে।"]
+},
+{
+q:["Which organ produces hydrochloric acid for digestion?","पाचन के लिए हाइड्रोक्लोरिक अम्ल कौन-सा अंग बनाता है?","পরিপাকের জন্য হাইড্রোক্লোরিক অ্যাসিড কোন অঙ্গ তৈরি করে?"],
+o:[["Liver","Stomach","Kidney","Pancreas"],["यकृत","आमाशय","गुर्दा","अग्न्याशय"],["যকৃত","পাকস্থলী","বৃক্ক","অগ্ন্যাশয়"]],
+a:1,
+e:["The stomach secretes hydrochloric acid as part of gastric juice.","आमाशय जठर रस के हिस्से के रूप में हाइड्रोक्लोरिक अम्ल स्रावित करता है।","পাকস্থলী গ্যাস্ট্রিক রসের অংশ হিসেবে হাইড্রোক্লোরিক অ্যাসিড ক্ষরণ করে।"]
+},
+{
+q:["What is the freezing point of pure water at normal pressure?","सामान्य दबाव पर शुद्ध जल का हिमांक कितना है?","স্বাভাবিক চাপে বিশুদ্ধ জলের হিমাঙ্ক কত?"],
+o:[["0°C","10°C","50°C","100°C"],["0°C","10°C","50°C","100°C"],["0°C","10°C","50°C","100°C"]],
+a:0,
+e:["Pure water freezes at 0°C at normal pressure.","सामान्य दबाव पर शुद्ध पानी 0°C पर जमता है।","স্বাভাবিক চাপে বিশুদ্ধ জল 0°C তাপমাত্রায় জমে যায়।"]
+},
+{
+q:["Which plant organ usually carries out most photosynthesis?","पौधे का कौन-सा अंग सामान्यतः अधिकांश प्रकाश संश्लेषण करता है?","উদ্ভিদের কোন অঙ্গ সাধারণত অধিকাংশ সালোকসংশ্লেষ করে?"],
+o:[["Root","Leaf","Flower","Seed"],["जड़","पत्ती","फूल","बीज"],["মূল","পাতা","ফুল","বীজ"]],
+a:1,
+e:["Leaves contain chloroplasts and usually carry out most photosynthesis.","पत्तियों में हरितलवक होते हैं और वे सामान्यतः अधिकांश प्रकाश संश्लेषण करती हैं।","পাতায় ক্লোরোপ্লাস্ট থাকে এবং সাধারণত পাতাই অধিকাংশ সালোকসংশ্লেষ করে।"]
+},
+{
+q:["Which blood cells contain haemoglobin and carry oxygen?","कौन-सी रक्त कोशिकाएँ हीमोग्लोबिन रखती हैं और ऑक्सीजन ले जाती हैं?","কোন রক্তকণিকায় হিমোগ্লোবিন থাকে এবং অক্সিজেন বহন করে?"],
+o:[["White blood cells","Platelets","Red blood cells","Nerve cells"],["श्वेत रक्त कोशिकाएँ","प्लेटलेट्स","लाल रक्त कोशिकाएँ","तंत्रिका कोशिकाएँ"],["শ্বেত রক্তকণিকা","অণুচক্রিকা","লোহিত রক্তকণিকা","স্নায়ুকোষ"]],
+a:2,
+e:["Red blood cells contain haemoglobin, which carries oxygen.","लाल रक्त कोशिकाओं में हीमोग्लोबिन होता है, जो ऑक्सीजन ले जाता है।","লোহিত রক্তকণিকায় হিমোগ্লোবিন থাকে, যা অক্সিজেন বহন করে।"]
+},
+{
+q:["What is the SI unit of frequency?","आवृत्ति की SI इकाई क्या है?","কম্পাঙ্কের SI একক কী?"],
+o:[["Hertz","Newton","Joule","Watt"],["हर्ट्ज़","न्यूटन","जूल","वाट"],["হার্টজ","নিউটন","জুল","ওয়াট"]],
+a:0,
+e:["Frequency is measured in hertz (Hz).","आवृत्ति को हर्ट्ज़ (Hz) में मापा जाता है।","কম্পাঙ্ক হার্টজ (Hz) এককে মাপা হয়।"]
+},
+{
+q:["Which energy source uses sunlight to produce electricity?","कौन-सा ऊर्जा स्रोत सूर्य के प्रकाश से बिजली बनाता है?","কোন শক্তির উৎস সূর্যালোক ব্যবহার করে বিদ্যুৎ উৎপন্ন করে?"],
+o:[["Solar energy","Coal energy","Petroleum energy","Nuclear energy"],["सौर ऊर्जा","कोयला ऊर्जा","पेट्रोलियम ऊर्जा","परमाणु ऊर्जा"],["সৌর শক্তি","কয়লা শক্তি","পেট্রোলিয়াম শক্তি","পারমাণবিক শক্তি"]],
+a:0,
+e:["Solar panels convert sunlight into electrical energy.","सौर पैनल सूर्य के प्रकाश को विद्युत ऊर्जा में बदलते हैं।","সৌর প্যানেল সূর্যালোককে তড়িৎ শক্তিতে রূপান্তর করে।"]
+},
+{
+q:["Which gas is released by plants during photosynthesis?","प्रकाश संश्लेषण के दौरान पौधे कौन-सी गैस छोड़ते हैं?","সালোকসংশ্লেষের সময় উদ্ভিদ কোন গ্যাস ত্যাগ করে?"],
+o:[["Nitrogen","Oxygen","Hydrogen","Methane"],["नाइट्रोजन","ऑक्सीजन","हाइड्रोजन","मीथेन"],["নাইট্রোজেন","অক্সিজেন","হাইড্রোজেন","মিথেন"]],
+a:1,
+e:["Oxygen is released during photosynthesis.","प्रकाश संश्लेषण के दौरान ऑक्सीजन निकलती है।","সালোকসংশ্লেষের সময় অক্সিজেন নির্গত হয়।"]
+},
+{
+q:["Which tissue connects muscle to bone?","कौन-सा ऊतक मांसपेशी को हड्डी से जोड़ता है?","কোন কলা পেশিকে হাড়ের সঙ্গে যুক্ত করে?"],
+o:[["Ligament","Tendon","Cartilage","Nerve"],["स्नायुबंधन","कण्डरा","उपास्थि","तंत्रिका"],["লিগামেন্ট","টেন্ডন","তরুণাস্থি","স্নায়ু"]],
+a:1,
+e:["A tendon connects muscle to bone.","कण्डरा मांसपेशी को हड्डी से जोड़ती है।","টেন্ডন পেশিকে হাড়ের সঙ্গে যুক্ত করে।"]
+},
+{
+q:["Which of these is a renewable source of energy?","इनमें से कौन-सा ऊर्जा का नवीकरणीय स्रोत है?","নিচের কোনটি নবীকরণযোগ্য শক্তির উৎস?"],
+o:[["Coal","Petroleum","Wind","Natural gas"],["कोयला","पेट्रोलियम","पवन","प्राकृतिक गैस"],["কয়লা","পেট্রোলিয়াম","বায়ু","প্রাকৃতিক গ্যাস"]],
+a:2,
+e:["Wind is naturally replenished and is a renewable energy source.","पवन प्राकृतिक रूप से उपलब्ध होती है और नवीकरणीय ऊर्जा स्रोत है।","বায়ু প্রাকৃতিকভাবে পুনরায় পাওয়া যায়, তাই এটি নবীকরণযোগ্য শক্তির উৎস।"]
+},
+{
+q:["Which instrument measures electric current in a circuit?","परिपथ में विद्युत धारा मापने का यंत्र कौन-सा है?","বর্তনীতে তড়িৎ প্রবাহ মাপার যন্ত্র কোনটি?"],
+o:[["Voltmeter","Ammeter","Barometer","Thermometer"],["वोल्टमीटर","एमीटर","बैरोमीटर","थर्मामीटर"],["ভোল্টমিটার","অ্যামিটার","ব্যারোমিটার","থার্মোমিটার"]],
+a:1,
+e:["An ammeter is used to measure current in a circuit.","परिपथ में धारा मापने के लिए एमीटर का उपयोग होता है।","বর্তনীতে তড়িৎ প্রবাহ মাপতে অ্যামিটার ব্যবহার করা হয়।"]
+},
+{
+q:["Which metal is commonly used to make electrical wires?","विद्युत तार बनाने में सामान्यतः किस धातु का उपयोग होता है?","বৈদ্যুতিক তার তৈরিতে সাধারণত কোন ধাতু ব্যবহৃত হয়?"],
+o:[["Copper","Sulphur","Carbon","Phosphorus"],["ताँबा","गंधक","कार्बन","फॉस्फोरस"],["তামা","গন্ধক","কার্বন","ফসফরাস"]],
+a:0,
+e:["Copper conducts electricity well and is widely used in wires.","ताँबा विद्युत का अच्छा चालक है और तारों में व्यापक रूप से उपयोग होता है।","তামা বিদ্যুতের ভালো পরিবাহী, তাই তারে ব্যাপকভাবে ব্যবহৃত হয়।"]
+},
+{
+q:["Which part of the brain helps maintain balance and coordination?","मस्तिष्क का कौन-सा भाग संतुलन और समन्वय बनाए रखने में मदद करता है?","মস্তিষ্কের কোন অংশ ভারসাম্য ও সমন্বয় বজায় রাখতে সাহায্য করে?"],
+o:[["Cerebrum","Cerebellum","Medulla","Spinal cord"],["प्रमस्तिष्क","अनुमस्तिष्क","मेडुला","मेरुरज्जु"],["গুরুমস্তিষ্ক","লঘুমস্তিষ্ক","মেডুলা","সুষুম্নাকাণ্ড"]],
+a:1,
+e:["The cerebellum helps coordinate movement and maintain balance.","अनुमस्तिष्क गति के समन्वय और संतुलन बनाए रखने में मदद करता है।","লঘুমস্তিষ্ক চলাচলের সমন্বয় ও ভারসাম্য বজায় রাখতে সাহায্য করে।"]
+},
+{
+q:["What is the change of liquid water into water vapour called?","तरल जल के जलवाष्प में बदलने की प्रक्रिया क्या कहलाती है?","তরল জল জলীয় বাষ্পে পরিণত হওয়ার প্রক্রিয়াকে কী বলে?"],
+o:[["Condensation","Freezing","Evaporation","Melting"],["संघनन","जमना","वाष्पीकरण","पिघलना"],["ঘনীভবন","জমাট বাঁধা","বাষ্পীভবন","গলে যাওয়া"]],
+a:2,
+e:["Evaporation changes liquid water into water vapour.","वाष्पीकरण में तरल जल जलवाष्प में बदलता है।","বাষ্পীভবনে তরল জল জলীয় বাষ্পে পরিণত হয়।"]
+},
+{
+q:["Which vitamin is important for normal blood clotting?","सामान्य रक्त का थक्का जमने के लिए कौन-सा विटामिन आवश्यक है?","স্বাভাবিক রক্ত জমাট বাঁধার জন্য কোন ভিটামিন গুরুত্বপূর্ণ?"],
+o:[["Vitamin A","Vitamin C","Vitamin D","Vitamin K"],["विटामिन A","विटामिन C","विटामिन D","विटामिन K"],["ভিটামিন A","ভিটামিন C","ভিটামিন D","ভিটামিন K"]],
+a:3,
+e:["Vitamin K is needed for the production of several blood-clotting proteins.","रक्त का थक्का जमाने वाले कई प्रोटीनों के निर्माण के लिए विटामिन K आवश्यक है।","রক্ত জমাট বাঁধার কয়েকটি প্রোটিন তৈরিতে ভিটামিন K প্রয়োজন।"]
+},
+{
+q:["What is the SI unit of pressure?","दाब की SI इकाई क्या है?","চাপের SI একক কী?"],
+o:[["Pascal","Joule","Watt","Newton"],["पास्कल","जूल","वाट","न्यूटन"],["পাস্কাল","জুল","ওয়াট","নিউটন"]],
+a:0,
+e:["Pressure is measured in pascals (Pa).","दाब को पास्कल (Pa) में मापा जाता है।","চাপ পাস্কাল (Pa) এককে মাপা হয়।"]
+},
+{
+q:["Which part of a flower produces pollen grains?","फूल का कौन-सा भाग परागकण बनाता है?","ফুলের কোন অংশ পরাগরেণু তৈরি করে?"],
+o:[["Stigma","Ovary","Anther","Sepal"],["वर्तिकाग्र","अंडाशय","परागकोश","बाह्यदल"],["গর্ভমুণ্ড","ডিম্বাশয়","পরাগধানী","বৃতি"]],
+a:2,
+e:["The anther produces pollen grains.","परागकोश परागकण बनाता है।","পরাগধানী পরাগরেণু তৈরি করে।"]
+}
+];
 
 const topics = [
   {
@@ -390,7 +775,7 @@ const topics = [
     title: {en:"Environment", hi:"पर्यावरण", bn:"পরিবেশ"},
     text: {
       en:"An ecosystem includes living organisms and their non-living surroundings interacting with one another.",
-      hi:"पारितंत्र में जीवित जीव और उनका निर्जीव परिवেশ एक-दूसरे के साथ अंतःक्रिया करते हैं।",
+      hi:"पारितंत्र में जीवित जीव और उनका निर्जीव परिवेश एक-दूसरे के साथ अंतःक्रिया करते हैं।",
       bn:"বাস্তুতন্ত্রে জীব ও তাদের অজীব পরিবেশ একে অপরের সঙ্গে মিথস্ক্রিয়া করে।"
     }
   }
@@ -404,6 +789,22 @@ const languageSelect = document.getElementById("language");
 const chapterList = document.getElementById("chapterList");
 const searchInput = document.getElementById("search");
 const lesson = document.getElementById("lesson");
+
+function getAllQuestions() {
+  const langIndex = {en:0, hi:1, bn:2}[currentLanguage];
+
+  const newQuestions = extraQuestions.map(item => [
+    item.q[langIndex],
+    item.o[langIndex],
+    item.a,
+    item.e[langIndex]
+  ]);
+
+  return [
+    ...translations[currentLanguage].questions,
+    ...newQuestions
+  ];
+}
 
 function updateLanguage() {
   currentLanguage = languageSelect.value;
@@ -432,6 +833,7 @@ function renderTopics() {
     const title = topic.title[currentLanguage].toLocaleLowerCase();
     const englishTitle = topic.title.en.toLocaleLowerCase();
     const subjectName = translations[currentLanguage][topic.subject].toLocaleLowerCase();
+
     return title.includes(term) ||
            englishTitle.includes(term) ||
            subjectName.includes(term);
@@ -439,6 +841,7 @@ function renderTopics() {
 
   document.getElementById("noResults").textContent =
     translations[currentLanguage].noResults;
+
   document.getElementById("noResults").classList.toggle(
     "hidden", filtered.length !== 0
   );
@@ -472,13 +875,20 @@ function openLesson(topic) {
 
 function renderQuestion() {
   answered = false;
-  const quiz = translations[currentLanguage].questions;
-  const item = quiz[questionIndex % quiz.length];
+
+  const allQuestions = getAllQuestions();
+  const item = allQuestions[questionIndex % allQuestions.length];
+
+  document.getElementById("questionCount").textContent =
+    translations[currentLanguage].question + " " +
+    ((questionIndex % allQuestions.length) + 1) +
+    " / " + allQuestions.length;
 
   document.getElementById("question").textContent =
-    (questionIndex + 1) + ". " + item[0];
+    item[0];
 
   document.getElementById("feedback").textContent = "";
+
   const box = document.getElementById("quizBox");
   box.innerHTML = "";
 
@@ -486,17 +896,27 @@ function renderQuestion() {
     const button = document.createElement("button");
     button.className = "option";
     button.textContent = answer;
+
     button.addEventListener("click", () => {
       if (answered) return;
+
       answered = true;
 
       const feedback = document.getElementById("feedback");
+
       if (index === item[2]) {
-        feedback.textContent = "✓ " + item[3];
+        feedback.textContent =
+          "✓ " + translations[currentLanguage].correct + " " + item[3];
       } else {
-        feedback.textContent = "✗ " + item[3];
+        feedback.textContent =
+          "✗ " + translations[currentLanguage].wrong + " " + item[3];
       }
+
+      box.querySelectorAll("button").forEach(option => {
+        option.disabled = true;
+      });
     });
+
     box.appendChild(button);
   });
 }
@@ -518,6 +938,3 @@ updateLanguage();
 
 </body>
 </html>
-: #aaa;
-  font-size: 12px;
-  letter-spacing: 2px;
